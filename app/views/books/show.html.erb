@@ -1,9 +1,67 @@
-<h1>Book detail</h1>
-<div>
-  <p><%= image_tag @book.user.get_profile_image(100,100) %></p>
-  <p><%= @book.title %></p>
-  <p><%= @book.body %></p>
-  <% if @book.user == current_user %>
-    <%= link_to "Destroy", book_path(@book), method: :delete ,"data-confirm" => "本当に消しますか？" %>
-  <% end %>
+<p id="notice"></p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+        <%= image_tag @user.get_profile_image(100,100) %>
+          <table class="table">
+          <tbody>
+            <tr></tr>
+              <tr>
+	              <th>name</th>
+	              <th><%=@user.name %></th>
+              </tr>
+              <tr>
+	              <th>introduction</th>
+	              <th><%=@user.introduction %></th>
+              </tr><br></br>
+            <td>
+            <% if @user == current_user %>
+            <div class='nav-item'>
+              <%= link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
+                <i class="fa-solid fa-user-gear"></i>
+              <% end %>
+            </div>
+            <% end %>
+            </td>
+          </tbody>
+          </table>
+
+      <h2 >New book</h2>
+      <%= form_with model: @book do |f| %>
+      <h4>Title</h4>
+      <%= f.text_field :title %>
+      <h4>Opinion</h4>
+      <%= f.text_area :body %><br>
+      <%= f.submit 'Create Book' %>
+      <% end %>
+    </div>
+
+    <div class="col-md-8 offset-md-1">
+      <h1>Book detail</h1>
+        <table class="table">
+           <tbody>
+             <tr>
+               <td>
+                 <p><%= image_tag @book.user.get_profile_image(100,100) %><br>@user.name</p>
+               </td>
+               <td>
+                 <p><%= @book.title %></p>
+               </td>
+               <td>
+                 <p><%= @book.body %></p>
+               </td>
+               <td>
+                 <% if @book.user == current_user %>
+                 <td>
+                   <%= link_to "Edit", edit_book_path(@user.id), class: "btn btn-sm btn-success edit_book_@user.id" %>
+                 </td>
+                 <td>
+                   <%= link_to "Destroy", book_path(@user.id), method: :delete, data: { confirm: "本当に消しますか？" }, class: "btn btn-sm btn-danger destroy_book_@user.id", remote: true %>
+                 </td>
+                 <% end %>
+               </td>
+             </tr>     
+        </table>
+  </div>
 </div>
