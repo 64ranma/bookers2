@@ -16,14 +16,12 @@
 	              <th><%=@user.introduction %></th>
               </tr><br></br>
             <td>
-            <% if @user == current_user %>
             <div class='nav-item'>
               <%= link_to edit_user_path(@user), class: 'btn btn-outline-secondary btn-block' do %>
                 <i class="fa-solid fa-user-gear"></i>
               <% end %>
             </div>
-            <% end %>
-            </td>
+           </td>
           </tbody>
           </table>
 
